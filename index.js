@@ -36,6 +36,7 @@ socket.on('connect', function() {
 });
 function reconnect() {
   socket = null;
+  console.log("reconnecting lol")
   var socket = io("wss://v3.hackballshd.repl.co", {
   reconnectionDelayMax: 30000,
   // keep this
