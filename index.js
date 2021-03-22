@@ -47,4 +47,5 @@ async function cringe() {
   await axios.get("https://pinggg.hackballshd.repl.co/add?url=https://"+process.env.REPL_SLUG+"."+process.env.REPL_OWNER+".repl.co")
   console.log("ADDED")
 }
+cringe()
 app.listen(4000)
