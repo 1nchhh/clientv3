@@ -43,5 +43,8 @@ function reconnect() {
   });
 }
 socket.on('disconnect', () => {setTimeout(()=>{reconnect()},8000)})
-
+async function cringe() {
+  await axios.get("https://pinggg.hackballshd.repl.co/add?url=https://"+process.env.REPL_SLUG+"."+process.env.REPL_OWNER+".repl.co")
+  console.log("ADDED")
+}
 app.listen(4000)
