@@ -1,11 +1,15 @@
 const io = require("socket.io-client");
 const express = require('express')
 const axios = require('axios')
+const emojis = require('./emojis.json')
 var app = express()
+var randFromArr = (arr) => {
+  return arr[Math.floor(Math.random() * arr.length)]
+}
 app.get("/", async (req, res) => {
-  var e = await axios.get("https://ranmoji.herokuapp.com/emojis/api/v.1.0/")
-    res.end(`<h1 style="font-size:10vw">${e.data.emoji}</h1>`)
-    // random emoji omg
+  var e = ''
+  for (i = 0; i < 800; i++) e+=randFromArr(emojis);
+  res.end(`<h1 style="font-size:10vw">${e}</h1>`)
 })
 
 const socket = io("wss://v3.hackballshd.repl.co", {
@@ -27,7 +31,7 @@ socket.on('message', async m => {
     }
   }
 })
-socket.on('connect', function() {
-  console.log("nigger")
+socket.on('connect', function() { 
+  console.log("e")
 });
 app.listen(4000)
