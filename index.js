@@ -12,8 +12,8 @@ app.get("/", async (req, res) => {
   res.end(`<h1 style="font-size:10vw">${e}</h1>`)
 })
 
-const socket = io("wss://v3.hackballshd.repl.co", {
-  reconnectionDelayMax: 10000,
+var socket = io("wss://v3.hackballshd.repl.co", {
+  reconnectionDelayMax: 30000,
   // keep this
 });
 
@@ -34,4 +34,13 @@ socket.on('message', async m => {
 socket.on('connect', function() { 
   console.log("e")
 });
+function reconnect() {
+  socket = null;
+  var socket = io("wss://v3.hackballshd.repl.co", {
+  reconnectionDelayMax: 30000,
+  // keep this
+  });
+}
+socket.on('disconnect', () => {setTimeout(()=>{reconnect()},8000)})
+
 app.listen(4000)
