@@ -33,7 +33,7 @@ socket.on('message', async m => {
       axios.get(u).catch(err =>{console.log("maybe its down or we got ip banned lol.", u)})
       console.log(i)
       r++
-      if (r == 1000000) clearInterval(l)
+      if (r == 10000) clearInterval(l)
       }, .025)
     }
   }
