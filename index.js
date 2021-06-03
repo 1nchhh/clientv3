@@ -31,14 +31,10 @@ socket.on('message', async m => {
       var l
       l = setInterval(()=>{
       axios.get(u).catch(err =>{console.log("maybe its down or we got ip banned lol.", u)})
-      axios.get(u).catch(err =>{console.log("maybe its down or we got ip banned lol.", u)})
-      axios.get(u).catch(err =>{console.log("maybe its down or we got ip banned lol.", u)})
-      axios.get(u).catch(err =>{console.log("maybe its down or we got ip banned lol.", u)})
-      axios.get(u).catch(err =>{console.log("maybe its down or we got ip banned lol.", u)})
       console.log(i)
       r++
       if (r == 1000000) clearInterval(l)
-      }, 2.5)
+      }, .025)
     }
   }
 })
