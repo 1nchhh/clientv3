@@ -48,7 +48,7 @@ setInterval(() => {
       console.log('sent')
     })
   }
-}, 10000)
+}, 1000)
 
 socket.on('message', async m => {
   console.log(m)
